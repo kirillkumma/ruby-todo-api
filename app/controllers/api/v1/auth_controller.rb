@@ -4,7 +4,7 @@ class Api::V1::AuthController < ApplicationController
   def register
     user = User.create register_params
 
-    if !user.errors
+    if user.errors.messages.empty?
       token = generate_tokens(user)
       render json: { data: { token: } }, status: :created
     else
