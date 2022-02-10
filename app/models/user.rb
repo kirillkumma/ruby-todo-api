@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   has_secure_password
+  has_many :todos
   validates :email, presence: { message: "Can't be blank" },
                     uniqueness: { message: 'Has already been taken' }
   validates :email,
