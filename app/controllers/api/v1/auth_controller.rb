@@ -64,7 +64,9 @@ class Api::V1::AuthController < ApplicationController
                           value: AuthService.encode({ id: user.id },
                                                     86_400 * 30),
                           expires: 30.days.from_now,
-                          httponly: true
+                          httponly: true,
+                          path: '/',
+                          same_site: 'Lax'
                         })
     AuthService.encode({ id: user.id, email: user.email,
                          name: user.name }, 60 * 30)
