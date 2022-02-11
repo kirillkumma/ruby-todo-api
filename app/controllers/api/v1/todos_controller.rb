@@ -24,7 +24,7 @@ class Api::V1::TodosController < ApplicationController
   end
 
   def update
-    @todo.update title: params['title']
+    @todo.update update_todo_params
 
     if @todo.errors.messages.empty?
       render json: { data: @todo }
@@ -45,5 +45,9 @@ class Api::V1::TodosController < ApplicationController
     @todo = Todo.find_by! id: params['id']
   rescue ActiveRecord::RecordNotFound
     render json: { error: { message: 'Not found' } }, status: :not_found
+  end
+
+  def update_todo_params
+    params.permit(:title, :completed)
   end
 end
