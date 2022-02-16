@@ -50,7 +50,13 @@ class Api::V1::AuthController < ApplicationController
   end
 
   def logout
-    response.delete_cookie :refresh_token
+    response.set_cookie(:refresh_token, {
+                          value: '',
+                          expires: 0.seconds.from_now,
+                          httponly: true,
+                          path: '/',
+                          same_site: 'Lax'
+                        })
     render status: :no_content
   end
 
