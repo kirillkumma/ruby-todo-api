@@ -49,6 +49,11 @@ class Api::V1::AuthController < ApplicationController
     render json: { error: { message: 'Inavlid token' } }, status: :unauthorized
   end
 
+  def logout
+    response.delete_cookie :refresh_token
+    render status: :no_content
+  end
+
   private
 
   def register_params
